@@ -450,30 +450,30 @@ s8 sbp_send_message(sbp_state_t *s, u16 msg_type, u16 sender_id, u8 len, u8 *pay
 {
   /* Check our payload data pointer isn't NULL unless len = 0. */
   if (len != 0 && payload == 0)
-    return SBP_NULL_ERROR;
+    return -10;
 
   /* Check our write function pointer isn't NULL. */
   if (write == 0)
-    return SBP_NULL_ERROR;
+    return -11;
 
   u16 crc;
 
   u8 preamble = SBP_PREAMBLE;
   if ((*write)(&preamble, 1, s->io_context) != 1)
-    return SBP_SEND_ERROR;
+    return -12;
 
   if ((*write)((u8*)&msg_type, 2, s->io_context) != 2)
-    return SBP_SEND_ERROR;
+    return -13;
 
   if ((*write)((u8*)&sender_id, 2, s->io_context) != 2)
-    return SBP_SEND_ERROR;
+    return -14;
 
   if ((*write)(&len, 1, s->io_context) != 1)
-    return SBP_SEND_ERROR;
+    return -15;
 
   if (len > 0) {
     if ((*write)(payload, len, s->io_context) != len)
-      return SBP_SEND_ERROR;
+      return -16;
   }
 
   crc = crc16_ccitt((u8*)&(msg_type), 2, 0);
@@ -482,7 +482,7 @@ s8 sbp_send_message(sbp_state_t *s, u16 msg_type, u16 sender_id, u8 len, u8 *pay
   crc = crc16_ccitt(payload, len, crc);
 
   if ((*write)((u8*)&crc, 2, s->io_context) != 2)
-    return SBP_SEND_ERROR;
+    return -17;
 
   return SBP_OK;
 }
