@@ -548,6 +548,124 @@ $(makeSBP 'msgEphemerisGps ''MsgEphemerisGps)
 $(makeJSON "_msgEphemerisGps_" ''MsgEphemerisGps)
 $(makeLenses ''MsgEphemerisGps)
 
+msgEphemerisBds :: Word16
+msgEphemerisBds = 0x0089
+
+-- | SBP class for message MSG_EPHEMERIS_BDS (0x0089).
+--
+-- The ephemeris message returns a set of satellite orbit parameters that is
+-- used to calculate BDS satellite position, velocity, and clock offset. Please
+-- see the BeiDou Navigation Satellite System SIS-ICD Version 2.1, Table 5-9
+-- for more details.
+data MsgEphemerisBds = MsgEphemerisBds
+  { _msgEphemerisBds_common :: !EphemerisCommonContent
+    -- ^ Values common for all ephemeris types
+  , _msgEphemerisBds_tgd    :: ![Double]
+    -- ^ Group delay differential for B1 and B2
+  , _msgEphemerisBds_c_rs   :: !Double
+    -- ^ Amplitude of the sine harmonic correction term to the orbit radius
+  , _msgEphemerisBds_c_rc   :: !Double
+    -- ^ Amplitude of the cosine harmonic correction term to the orbit radius
+  , _msgEphemerisBds_c_uc   :: !Double
+    -- ^ Amplitude of the cosine harmonic correction term to the argument of
+    -- latitude
+  , _msgEphemerisBds_c_us   :: !Double
+    -- ^ Amplitude of the sine harmonic correction term to the argument of
+    -- latitude
+  , _msgEphemerisBds_c_ic   :: !Double
+    -- ^ Amplitude of the cosine harmonic correction term to the angle of
+    -- inclination
+  , _msgEphemerisBds_c_is   :: !Double
+    -- ^ Amplitude of the sine harmonic correction term to the angle of
+    -- inclination
+  , _msgEphemerisBds_dn     :: !Double
+    -- ^ Mean motion difference
+  , _msgEphemerisBds_m0     :: !Double
+    -- ^ Mean anomaly at reference time
+  , _msgEphemerisBds_ecc    :: !Double
+    -- ^ Eccentricity of satellite orbit
+  , _msgEphemerisBds_sqrta  :: !Double
+    -- ^ Square root of the semi-major axis of orbit
+  , _msgEphemerisBds_omega0 :: !Double
+    -- ^ Longitude of ascending node of orbit plane at weekly epoch
+  , _msgEphemerisBds_omegadot :: !Double
+    -- ^ Rate of right ascension
+  , _msgEphemerisBds_w      :: !Double
+    -- ^ Argument of perigee
+  , _msgEphemerisBds_inc    :: !Double
+    -- ^ Inclination
+  , _msgEphemerisBds_inc_dot :: !Double
+    -- ^ Inclination first derivative
+  , _msgEphemerisBds_af0    :: !Double
+    -- ^ Polynomial clock correction coefficient (clock bias)
+  , _msgEphemerisBds_af1    :: !Double
+    -- ^ Polynomial clock correction coefficient (clock drift)
+  , _msgEphemerisBds_af2    :: !Double
+    -- ^ Polynomial clock correction coefficient (rate of clock drift)
+  , _msgEphemerisBds_toc    :: !GpsTimeSec
+    -- ^ Clock reference
+  , _msgEphemerisBds_iode   :: !Word8
+    -- ^ Issue of ephemeris data
+  , _msgEphemerisBds_iodc   :: !Word16
+    -- ^ Issue of clock data
+  } deriving ( Show, Read, Eq )
+
+instance Binary MsgEphemerisBds where
+  get = do
+    _msgEphemerisBds_common <- get
+    _msgEphemerisBds_tgd <- replicateM 2 getFloat64le
+    _msgEphemerisBds_c_rs <- getFloat64le
+    _msgEphemerisBds_c_rc <- getFloat64le
+    _msgEphemerisBds_c_uc <- getFloat64le
+    _msgEphemerisBds_c_us <- getFloat64le
+    _msgEphemerisBds_c_ic <- getFloat64le
+    _msgEphemerisBds_c_is <- getFloat64le
+    _msgEphemerisBds_dn <- getFloat64le
+    _msgEphemerisBds_m0 <- getFloat64le
+    _msgEphemerisBds_ecc <- getFloat64le
+    _msgEphemerisBds_sqrta <- getFloat64le
+    _msgEphemerisBds_omega0 <- getFloat64le
+    _msgEphemerisBds_omegadot <- getFloat64le
+    _msgEphemerisBds_w <- getFloat64le
+    _msgEphemerisBds_inc <- getFloat64le
+    _msgEphemerisBds_inc_dot <- getFloat64le
+    _msgEphemerisBds_af0 <- getFloat64le
+    _msgEphemerisBds_af1 <- getFloat64le
+    _msgEphemerisBds_af2 <- getFloat64le
+    _msgEphemerisBds_toc <- get
+    _msgEphemerisBds_iode <- getWord8
+    _msgEphemerisBds_iodc <- getWord16le
+    pure MsgEphemerisBds {..}
+
+  put MsgEphemerisBds {..} = do
+    put _msgEphemerisBds_common
+    mapM_ putFloat64le _msgEphemerisBds_tgd
+    putFloat64le _msgEphemerisBds_c_rs
+    putFloat64le _msgEphemerisBds_c_rc
+    putFloat64le _msgEphemerisBds_c_uc
+    putFloat64le _msgEphemerisBds_c_us
+    putFloat64le _msgEphemerisBds_c_ic
+    putFloat64le _msgEphemerisBds_c_is
+    putFloat64le _msgEphemerisBds_dn
+    putFloat64le _msgEphemerisBds_m0
+    putFloat64le _msgEphemerisBds_ecc
+    putFloat64le _msgEphemerisBds_sqrta
+    putFloat64le _msgEphemerisBds_omega0
+    putFloat64le _msgEphemerisBds_omegadot
+    putFloat64le _msgEphemerisBds_w
+    putFloat64le _msgEphemerisBds_inc
+    putFloat64le _msgEphemerisBds_inc_dot
+    putFloat64le _msgEphemerisBds_af0
+    putFloat64le _msgEphemerisBds_af1
+    putFloat64le _msgEphemerisBds_af2
+    put _msgEphemerisBds_toc
+    putWord8 _msgEphemerisBds_iode
+    putWord16le _msgEphemerisBds_iodc
+
+$(makeSBP 'msgEphemerisBds ''MsgEphemerisBds)
+$(makeJSON "_msgEphemerisBds_" ''MsgEphemerisBds)
+$(makeLenses ''MsgEphemerisBds)
+
 msgEphemerisSbasDepA :: Word16
 msgEphemerisSbasDepA = 0x0082
 

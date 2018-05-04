@@ -149,6 +149,39 @@ message MsgEphemerisGps {
     uint32 iodc = 23;
 }
 
+/** Satellite broadcast ephemeris for BDS
+ *
+ * The ephemeris message returns a set of satellite orbit
+ * parameters that is used to calculate BDS satellite position,
+ * velocity, and clock offset. Please see the BeiDou Navigation
+ * Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
+ */
+message MsgEphemerisBds {
+    EphemerisCommonContent common = 1;
+    repeated double tgd = 2;
+    double c_rs = 3;
+    double c_rc = 4;
+    double c_uc = 5;
+    double c_us = 6;
+    double c_ic = 7;
+    double c_is = 8;
+    double dn = 9;
+    double m0 = 10;
+    double ecc = 11;
+    double sqrta = 12;
+    double omega0 = 13;
+    double omegadot = 14;
+    double w = 15;
+    double inc = 16;
+    double inc_dot = 17;
+    double af0 = 18;
+    double af1 = 19;
+    double af2 = 20;
+    gnss.GpsTimeSec toc = 21;
+    uint32 iode = 22;
+    uint32 iodc = 23;
+}
+
 /** Satellite broadcast ephemeris for SBAS
  *
 None
