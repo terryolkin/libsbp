@@ -242,13 +242,13 @@ typedef struct __attribute__((packed)) {
 typedef struct __attribute__((packed)) {
   ephemeris_common_content_t common;      /**< Values common for all ephemeris types */
   double tgd[2];      /**< Group delay differential for B1 and B2 [s] */
-  double c_rs;        /**< Amplitude of the sine harmonic correction term to the orbit radius [m] */
-  double c_rc;        /**< Amplitude of the cosine harmonic correction term to the orbit radius [m] */
-  double c_uc;        /**< Amplitude of the cosine harmonic correction term to the argument of latitude [rad] */
-  double c_us;        /**< Amplitude of the sine harmonic correction term to the argument of latitude [rad] */
-  double c_ic;        /**< Amplitude of the cosine harmonic correction term to the angle of inclination [rad] */
-  double c_is;        /**< Amplitude of the sine harmonic correction term to the angle of inclination [rad] */
-  double dn;          /**< Mean motion difference [rad/s] */
+  float c_rs;        /**< Amplitude of the sine harmonic correction term to the orbit radius [m] */
+  float c_rc;        /**< Amplitude of the cosine harmonic correction term to the orbit radius [m] */
+  float c_uc;        /**< Amplitude of the cosine harmonic correction term to the argument of latitude [rad] */
+  float c_us;        /**< Amplitude of the sine harmonic correction term to the argument of latitude [rad] */
+  float c_ic;        /**< Amplitude of the cosine harmonic correction term to the angle of inclination [rad] */
+  float c_is;        /**< Amplitude of the sine harmonic correction term to the angle of inclination [rad] */
+  float dn;          /**< Mean motion difference [rad/s] */
   double m0;          /**< Mean anomaly at reference time [rad] */
   double ecc;         /**< Eccentricity of satellite orbit */
   double sqrta;       /**< Square root of the semi-major axis of orbit [m^(1/2)] */
@@ -256,10 +256,10 @@ typedef struct __attribute__((packed)) {
   double omegadot;    /**< Rate of right ascension [rad/s] */
   double w;           /**< Argument of perigee [rad] */
   double inc;         /**< Inclination [rad] */
-  double inc_dot;     /**< Inclination first derivative [rad/s] */
+  float inc_dot;     /**< Inclination first derivative [rad/s] */
   double af0;         /**< Polynomial clock correction coefficient (clock bias) [s] */
-  double af1;         /**< Polynomial clock correction coefficient (clock drift) [s/s] */
-  double af2;         /**< Polynomial clock correction coefficient (rate of clock drift) [s/s^2] */
+  float af1;         /**< Polynomial clock correction coefficient (clock drift) [s/s] */
+  float af2;         /**< Polynomial clock correction coefficient (rate of clock drift) [s/s^2] */
   gps_time_sec_t toc;         /**< Clock reference */
   u8 iode;        /**< Issue of ephemeris data */
   u16 iodc;        /**< Issue of clock data */

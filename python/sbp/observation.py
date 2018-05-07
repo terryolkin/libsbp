@@ -1429,19 +1429,19 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
     Values common for all ephemeris types
   tgd : array
     Group delay differential for B1 and B2
-  c_rs : double
+  c_rs : float
     Amplitude of the sine harmonic correction term to the orbit radius
-  c_rc : double
+  c_rc : float
     Amplitude of the cosine harmonic correction term to the orbit radius
-  c_uc : double
+  c_uc : float
     Amplitude of the cosine harmonic correction term to the argument of latitude
-  c_us : double
+  c_us : float
     Amplitude of the sine harmonic correction term to the argument of latitude
-  c_ic : double
+  c_ic : float
     Amplitude of the cosine harmonic correction term to the angle of inclination
-  c_is : double
+  c_is : float
     Amplitude of the sine harmonic correction term to the angle of inclination
-  dn : double
+  dn : float
     Mean motion difference
   m0 : double
     Mean anomaly at reference time
@@ -1457,13 +1457,13 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
     Argument of perigee
   inc : double
     Inclination
-  inc_dot : double
+  inc_dot : float
     Inclination first derivative
   af0 : double
     Polynomial clock correction coefficient (clock bias)
-  af1 : double
+  af1 : float
     Polynomial clock correction coefficient (clock drift)
-  af2 : double
+  af2 : float
     Polynomial clock correction coefficient (rate of clock drift)
   toc : GPSTimeSec
     Clock reference
@@ -1478,13 +1478,13 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
   _parser = construct.Struct(
                    'common' / construct.Struct(EphemerisCommonContent._parser),
                    'tgd' / construct.Array(2, construct.Float64l),
-                   'c_rs' / construct.Float64l,
-                   'c_rc' / construct.Float64l,
-                   'c_uc' / construct.Float64l,
-                   'c_us' / construct.Float64l,
-                   'c_ic' / construct.Float64l,
-                   'c_is' / construct.Float64l,
-                   'dn' / construct.Float64l,
+                   'c_rs' / construct.Float32l,
+                   'c_rc' / construct.Float32l,
+                   'c_uc' / construct.Float32l,
+                   'c_us' / construct.Float32l,
+                   'c_ic' / construct.Float32l,
+                   'c_is' / construct.Float32l,
+                   'dn' / construct.Float32l,
                    'm0' / construct.Float64l,
                    'ecc' / construct.Float64l,
                    'sqrta' / construct.Float64l,
@@ -1492,10 +1492,10 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
                    'omegadot' / construct.Float64l,
                    'w' / construct.Float64l,
                    'inc' / construct.Float64l,
-                   'inc_dot' / construct.Float64l,
+                   'inc_dot' / construct.Float32l,
                    'af0' / construct.Float64l,
-                   'af1' / construct.Float64l,
-                   'af2' / construct.Float64l,
+                   'af1' / construct.Float32l,
+                   'af2' / construct.Float32l,
                    'toc' / construct.Struct(GPSTimeSec._parser),
                    'iode' / construct.Int8ul,
                    'iodc' / construct.Int16ul,)

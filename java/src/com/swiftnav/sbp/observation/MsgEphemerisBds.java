@@ -45,25 +45,25 @@ public class MsgEphemerisBds extends SBPMessage {
     public double[] tgd;
     
     /** Amplitude of the sine harmonic correction term to the orbit radius */
-    public double c_rs;
+    public float c_rs;
     
     /** Amplitude of the cosine harmonic correction term to the orbit radius */
-    public double c_rc;
+    public float c_rc;
     
     /** Amplitude of the cosine harmonic correction term to the argument of latitude */
-    public double c_uc;
+    public float c_uc;
     
     /** Amplitude of the sine harmonic correction term to the argument of latitude */
-    public double c_us;
+    public float c_us;
     
     /** Amplitude of the cosine harmonic correction term to the angle of inclination */
-    public double c_ic;
+    public float c_ic;
     
     /** Amplitude of the sine harmonic correction term to the angle of inclination */
-    public double c_is;
+    public float c_is;
     
     /** Mean motion difference */
-    public double dn;
+    public float dn;
     
     /** Mean anomaly at reference time */
     public double m0;
@@ -87,16 +87,16 @@ public class MsgEphemerisBds extends SBPMessage {
     public double inc;
     
     /** Inclination first derivative */
-    public double inc_dot;
+    public float inc_dot;
     
     /** Polynomial clock correction coefficient (clock bias) */
     public double af0;
     
     /** Polynomial clock correction coefficient (clock drift) */
-    public double af1;
+    public float af1;
     
     /** Polynomial clock correction coefficient (rate of clock drift) */
-    public double af2;
+    public float af2;
     
     /** Clock reference */
     public GPSTimeSec toc;
@@ -120,13 +120,13 @@ public class MsgEphemerisBds extends SBPMessage {
         /* Parse fields from binary */
         common = new EphemerisCommonContent().parse(parser);
         tgd = parser.getArrayofDouble(2);
-        c_rs = parser.getDouble();
-        c_rc = parser.getDouble();
-        c_uc = parser.getDouble();
-        c_us = parser.getDouble();
-        c_ic = parser.getDouble();
-        c_is = parser.getDouble();
-        dn = parser.getDouble();
+        c_rs = parser.getFloat();
+        c_rc = parser.getFloat();
+        c_uc = parser.getFloat();
+        c_us = parser.getFloat();
+        c_ic = parser.getFloat();
+        c_is = parser.getFloat();
+        dn = parser.getFloat();
         m0 = parser.getDouble();
         ecc = parser.getDouble();
         sqrta = parser.getDouble();
@@ -134,10 +134,10 @@ public class MsgEphemerisBds extends SBPMessage {
         omegadot = parser.getDouble();
         w = parser.getDouble();
         inc = parser.getDouble();
-        inc_dot = parser.getDouble();
+        inc_dot = parser.getFloat();
         af0 = parser.getDouble();
-        af1 = parser.getDouble();
-        af2 = parser.getDouble();
+        af1 = parser.getFloat();
+        af2 = parser.getFloat();
         toc = new GPSTimeSec().parse(parser);
         iode = parser.getU8();
         iodc = parser.getU16();
@@ -147,13 +147,13 @@ public class MsgEphemerisBds extends SBPMessage {
     protected void build(Builder builder) {
         common.build(builder);
         builder.putArrayofDouble(tgd, 2);
-        builder.putDouble(c_rs);
-        builder.putDouble(c_rc);
-        builder.putDouble(c_uc);
-        builder.putDouble(c_us);
-        builder.putDouble(c_ic);
-        builder.putDouble(c_is);
-        builder.putDouble(dn);
+        builder.putFloat(c_rs);
+        builder.putFloat(c_rc);
+        builder.putFloat(c_uc);
+        builder.putFloat(c_us);
+        builder.putFloat(c_ic);
+        builder.putFloat(c_is);
+        builder.putFloat(dn);
         builder.putDouble(m0);
         builder.putDouble(ecc);
         builder.putDouble(sqrta);
@@ -161,10 +161,10 @@ public class MsgEphemerisBds extends SBPMessage {
         builder.putDouble(omegadot);
         builder.putDouble(w);
         builder.putDouble(inc);
-        builder.putDouble(inc_dot);
+        builder.putFloat(inc_dot);
         builder.putDouble(af0);
-        builder.putDouble(af1);
-        builder.putDouble(af2);
+        builder.putFloat(af1);
+        builder.putFloat(af2);
         toc.build(builder);
         builder.putU8(iode);
         builder.putU16(iodc);

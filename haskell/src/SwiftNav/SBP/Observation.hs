@@ -562,23 +562,23 @@ data MsgEphemerisBds = MsgEphemerisBds
     -- ^ Values common for all ephemeris types
   , _msgEphemerisBds_tgd    :: ![Double]
     -- ^ Group delay differential for B1 and B2
-  , _msgEphemerisBds_c_rs   :: !Double
+  , _msgEphemerisBds_c_rs   :: !Float
     -- ^ Amplitude of the sine harmonic correction term to the orbit radius
-  , _msgEphemerisBds_c_rc   :: !Double
+  , _msgEphemerisBds_c_rc   :: !Float
     -- ^ Amplitude of the cosine harmonic correction term to the orbit radius
-  , _msgEphemerisBds_c_uc   :: !Double
+  , _msgEphemerisBds_c_uc   :: !Float
     -- ^ Amplitude of the cosine harmonic correction term to the argument of
     -- latitude
-  , _msgEphemerisBds_c_us   :: !Double
+  , _msgEphemerisBds_c_us   :: !Float
     -- ^ Amplitude of the sine harmonic correction term to the argument of
     -- latitude
-  , _msgEphemerisBds_c_ic   :: !Double
+  , _msgEphemerisBds_c_ic   :: !Float
     -- ^ Amplitude of the cosine harmonic correction term to the angle of
     -- inclination
-  , _msgEphemerisBds_c_is   :: !Double
+  , _msgEphemerisBds_c_is   :: !Float
     -- ^ Amplitude of the sine harmonic correction term to the angle of
     -- inclination
-  , _msgEphemerisBds_dn     :: !Double
+  , _msgEphemerisBds_dn     :: !Float
     -- ^ Mean motion difference
   , _msgEphemerisBds_m0     :: !Double
     -- ^ Mean anomaly at reference time
@@ -594,13 +594,13 @@ data MsgEphemerisBds = MsgEphemerisBds
     -- ^ Argument of perigee
   , _msgEphemerisBds_inc    :: !Double
     -- ^ Inclination
-  , _msgEphemerisBds_inc_dot :: !Double
+  , _msgEphemerisBds_inc_dot :: !Float
     -- ^ Inclination first derivative
   , _msgEphemerisBds_af0    :: !Double
     -- ^ Polynomial clock correction coefficient (clock bias)
-  , _msgEphemerisBds_af1    :: !Double
+  , _msgEphemerisBds_af1    :: !Float
     -- ^ Polynomial clock correction coefficient (clock drift)
-  , _msgEphemerisBds_af2    :: !Double
+  , _msgEphemerisBds_af2    :: !Float
     -- ^ Polynomial clock correction coefficient (rate of clock drift)
   , _msgEphemerisBds_toc    :: !GpsTimeSec
     -- ^ Clock reference
@@ -614,13 +614,13 @@ instance Binary MsgEphemerisBds where
   get = do
     _msgEphemerisBds_common <- get
     _msgEphemerisBds_tgd <- replicateM 2 getFloat64le
-    _msgEphemerisBds_c_rs <- getFloat64le
-    _msgEphemerisBds_c_rc <- getFloat64le
-    _msgEphemerisBds_c_uc <- getFloat64le
-    _msgEphemerisBds_c_us <- getFloat64le
-    _msgEphemerisBds_c_ic <- getFloat64le
-    _msgEphemerisBds_c_is <- getFloat64le
-    _msgEphemerisBds_dn <- getFloat64le
+    _msgEphemerisBds_c_rs <- getFloat32le
+    _msgEphemerisBds_c_rc <- getFloat32le
+    _msgEphemerisBds_c_uc <- getFloat32le
+    _msgEphemerisBds_c_us <- getFloat32le
+    _msgEphemerisBds_c_ic <- getFloat32le
+    _msgEphemerisBds_c_is <- getFloat32le
+    _msgEphemerisBds_dn <- getFloat32le
     _msgEphemerisBds_m0 <- getFloat64le
     _msgEphemerisBds_ecc <- getFloat64le
     _msgEphemerisBds_sqrta <- getFloat64le
@@ -628,10 +628,10 @@ instance Binary MsgEphemerisBds where
     _msgEphemerisBds_omegadot <- getFloat64le
     _msgEphemerisBds_w <- getFloat64le
     _msgEphemerisBds_inc <- getFloat64le
-    _msgEphemerisBds_inc_dot <- getFloat64le
+    _msgEphemerisBds_inc_dot <- getFloat32le
     _msgEphemerisBds_af0 <- getFloat64le
-    _msgEphemerisBds_af1 <- getFloat64le
-    _msgEphemerisBds_af2 <- getFloat64le
+    _msgEphemerisBds_af1 <- getFloat32le
+    _msgEphemerisBds_af2 <- getFloat32le
     _msgEphemerisBds_toc <- get
     _msgEphemerisBds_iode <- getWord8
     _msgEphemerisBds_iodc <- getWord16le
@@ -640,13 +640,13 @@ instance Binary MsgEphemerisBds where
   put MsgEphemerisBds {..} = do
     put _msgEphemerisBds_common
     mapM_ putFloat64le _msgEphemerisBds_tgd
-    putFloat64le _msgEphemerisBds_c_rs
-    putFloat64le _msgEphemerisBds_c_rc
-    putFloat64le _msgEphemerisBds_c_uc
-    putFloat64le _msgEphemerisBds_c_us
-    putFloat64le _msgEphemerisBds_c_ic
-    putFloat64le _msgEphemerisBds_c_is
-    putFloat64le _msgEphemerisBds_dn
+    putFloat32le _msgEphemerisBds_c_rs
+    putFloat32le _msgEphemerisBds_c_rc
+    putFloat32le _msgEphemerisBds_c_uc
+    putFloat32le _msgEphemerisBds_c_us
+    putFloat32le _msgEphemerisBds_c_ic
+    putFloat32le _msgEphemerisBds_c_is
+    putFloat32le _msgEphemerisBds_dn
     putFloat64le _msgEphemerisBds_m0
     putFloat64le _msgEphemerisBds_ecc
     putFloat64le _msgEphemerisBds_sqrta
@@ -654,10 +654,10 @@ instance Binary MsgEphemerisBds where
     putFloat64le _msgEphemerisBds_omegadot
     putFloat64le _msgEphemerisBds_w
     putFloat64le _msgEphemerisBds_inc
-    putFloat64le _msgEphemerisBds_inc_dot
+    putFloat32le _msgEphemerisBds_inc_dot
     putFloat64le _msgEphemerisBds_af0
-    putFloat64le _msgEphemerisBds_af1
-    putFloat64le _msgEphemerisBds_af2
+    putFloat32le _msgEphemerisBds_af1
+    putFloat32le _msgEphemerisBds_af2
     put _msgEphemerisBds_toc
     putWord8 _msgEphemerisBds_iode
     putWord16le _msgEphemerisBds_iodc
