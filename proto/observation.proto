@@ -158,28 +158,29 @@ message MsgEphemerisGps {
  */
 message MsgEphemerisBds {
     EphemerisCommonContent common = 1;
-    repeated double tgd = 2;
-    float c_rs = 3;
-    float c_rc = 4;
-    float c_uc = 5;
-    float c_us = 6;
-    float c_ic = 7;
-    float c_is = 8;
-    float dn = 9;
-    double m0 = 10;
-    double ecc = 11;
-    double sqrta = 12;
-    double omega0 = 13;
-    double omegadot = 14;
-    double w = 15;
-    double inc = 16;
-    float inc_dot = 17;
-    double af0 = 18;
-    float af1 = 19;
-    float af2 = 20;
-    gnss.GpsTimeSec toc = 21;
-    uint32 iode = 22;
-    uint32 iodc = 23;
+    float tgd1 = 2;
+    float tgd2 = 3;
+    float c_rs = 4;
+    float c_rc = 5;
+    float c_uc = 6;
+    float c_us = 7;
+    float c_ic = 8;
+    float c_is = 9;
+    float dn = 10;
+    double m0 = 11;
+    double ecc = 12;
+    double sqrta = 13;
+    double omega0 = 14;
+    double omegadot = 15;
+    double w = 16;
+    double inc = 17;
+    float inc_dot = 18;
+    double af0 = 19;
+    float af1 = 20;
+    float af2 = 21;
+    gnss.GpsTimeSec toc = 22;
+    uint32 iode = 23;
+    uint32 iodc = 24;
 }
 
 /** Satellite broadcast ephemeris for SBAS

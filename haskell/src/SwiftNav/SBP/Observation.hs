@@ -560,8 +560,10 @@ msgEphemerisBds = 0x0089
 data MsgEphemerisBds = MsgEphemerisBds
   { _msgEphemerisBds_common :: !EphemerisCommonContent
     -- ^ Values common for all ephemeris types
-  , _msgEphemerisBds_tgd    :: ![Double]
-    -- ^ Group delay differential for B1 and B2
+  , _msgEphemerisBds_tgd1   :: !Float
+    -- ^ Group delay differential for B1
+  , _msgEphemerisBds_tgd2   :: !Float
+    -- ^ Group delay differential for B2
   , _msgEphemerisBds_c_rs   :: !Float
     -- ^ Amplitude of the sine harmonic correction term to the orbit radius
   , _msgEphemerisBds_c_rc   :: !Float
@@ -613,7 +615,8 @@ data MsgEphemerisBds = MsgEphemerisBds
 instance Binary MsgEphemerisBds where
   get = do
     _msgEphemerisBds_common <- get
-    _msgEphemerisBds_tgd <- replicateM 2 getFloat64le
+    _msgEphemerisBds_tgd1 <- getFloat32le
+    _msgEphemerisBds_tgd2 <- getFloat32le
     _msgEphemerisBds_c_rs <- getFloat32le
     _msgEphemerisBds_c_rc <- getFloat32le
     _msgEphemerisBds_c_uc <- getFloat32le
@@ -639,7 +642,8 @@ instance Binary MsgEphemerisBds where
 
   put MsgEphemerisBds {..} = do
     put _msgEphemerisBds_common
-    mapM_ putFloat64le _msgEphemerisBds_tgd
+    putFloat32le _msgEphemerisBds_tgd1
+    putFloat32le _msgEphemerisBds_tgd2
     putFloat32le _msgEphemerisBds_c_rs
     putFloat32le _msgEphemerisBds_c_rc
     putFloat32le _msgEphemerisBds_c_uc

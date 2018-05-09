@@ -1427,8 +1427,10 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
     SBP parent object to inherit from.
   common : EphemerisCommonContent
     Values common for all ephemeris types
-  tgd : array
-    Group delay differential for B1 and B2
+  tgd1 : float
+    Group delay differential for B1
+  tgd2 : float
+    Group delay differential for B2
   c_rs : float
     Amplitude of the sine harmonic correction term to the orbit radius
   c_rc : float
@@ -1477,7 +1479,8 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
   """
   _parser = construct.Struct(
                    'common' / construct.Struct(EphemerisCommonContent._parser),
-                   'tgd' / construct.Array(2, construct.Float64l),
+                   'tgd1' / construct.Float32l,
+                   'tgd2' / construct.Float32l,
                    'c_rs' / construct.Float32l,
                    'c_rc' / construct.Float32l,
                    'c_uc' / construct.Float32l,
@@ -1501,7 +1504,8 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
                    'iodc' / construct.Int16ul,)
   __slots__ = [
                'common',
-               'tgd',
+               'tgd1',
+               'tgd2',
                'c_rs',
                'c_rc',
                'c_uc',
@@ -1536,7 +1540,8 @@ Satellite System SIS-ICD Version 2.1, Table 5-9 for more details.
       self.msg_type = SBP_MSG_EPHEMERIS_BDS
       self.sender = kwargs.pop('sender', SENDER_ID)
       self.common = kwargs.pop('common')
-      self.tgd = kwargs.pop('tgd')
+      self.tgd1 = kwargs.pop('tgd1')
+      self.tgd2 = kwargs.pop('tgd2')
       self.c_rs = kwargs.pop('c_rs')
       self.c_rc = kwargs.pop('c_rc')
       self.c_uc = kwargs.pop('c_uc')

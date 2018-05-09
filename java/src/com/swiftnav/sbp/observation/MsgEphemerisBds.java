@@ -41,8 +41,11 @@ public class MsgEphemerisBds extends SBPMessage {
     /** Values common for all ephemeris types */
     public EphemerisCommonContent common;
     
-    /** Group delay differential for B1 and B2 */
-    public double[] tgd;
+    /** Group delay differential for B1 */
+    public float tgd1;
+    
+    /** Group delay differential for B2 */
+    public float tgd2;
     
     /** Amplitude of the sine harmonic correction term to the orbit radius */
     public float c_rs;
@@ -119,7 +122,8 @@ public class MsgEphemerisBds extends SBPMessage {
     protected void parse(Parser parser) throws SBPBinaryException {
         /* Parse fields from binary */
         common = new EphemerisCommonContent().parse(parser);
-        tgd = parser.getArrayofDouble(2);
+        tgd1 = parser.getFloat();
+        tgd2 = parser.getFloat();
         c_rs = parser.getFloat();
         c_rc = parser.getFloat();
         c_uc = parser.getFloat();
@@ -146,7 +150,8 @@ public class MsgEphemerisBds extends SBPMessage {
     @Override
     protected void build(Builder builder) {
         common.build(builder);
-        builder.putArrayofDouble(tgd, 2);
+        builder.putFloat(tgd1);
+        builder.putFloat(tgd2);
         builder.putFloat(c_rs);
         builder.putFloat(c_rc);
         builder.putFloat(c_uc);
@@ -174,7 +179,8 @@ public class MsgEphemerisBds extends SBPMessage {
     public JSONObject toJSON() {
         JSONObject obj = super.toJSON();
         obj.put("common", common.toJSON());
-        obj.put("tgd", new JSONArray(tgd));
+        obj.put("tgd1", tgd1);
+        obj.put("tgd2", tgd2);
         obj.put("c_rs", c_rs);
         obj.put("c_rc", c_rc);
         obj.put("c_uc", c_uc);

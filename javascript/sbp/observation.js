@@ -535,7 +535,8 @@ MsgEphemerisGps.prototype.fieldSpec.push(['iodc', 'writeUInt16LE', 2]);
  *
  * Fields in the SBP payload (`sbp.payload`):
  * @field common EphemerisCommonContent Values common for all ephemeris types
- * @field tgd array Group delay differential for B1 and B2
+ * @field tgd1 number (float, 4 bytes) Group delay differential for B1
+ * @field tgd2 number (float, 4 bytes) Group delay differential for B2
  * @field c_rs number (float, 4 bytes) Amplitude of the sine harmonic correction term to the orbit radius
  * @field c_rc number (float, 4 bytes) Amplitude of the cosine harmonic correction term to the orbit radius
  * @field c_uc number (float, 4 bytes) Amplitude of the cosine harmonic correction term to the argument of latitude
@@ -574,7 +575,8 @@ MsgEphemerisBds.prototype.constructor = MsgEphemerisBds;
 MsgEphemerisBds.prototype.parser = new Parser()
   .endianess('little')
   .nest('common', { type: EphemerisCommonContent.prototype.parser })
-  .array('tgd', { length: 2, type: 'doublele' })
+  .floatle('tgd1')
+  .floatle('tgd2')
   .floatle('c_rs')
   .floatle('c_rc')
   .floatle('c_uc')
@@ -598,7 +600,8 @@ MsgEphemerisBds.prototype.parser = new Parser()
   .uint16('iodc');
 MsgEphemerisBds.prototype.fieldSpec = [];
 MsgEphemerisBds.prototype.fieldSpec.push(['common', EphemerisCommonContent.prototype.fieldSpec]);
-MsgEphemerisBds.prototype.fieldSpec.push(['tgd', 'array', 'writeDoubleLE', function () { return 8; }, 2]);
+MsgEphemerisBds.prototype.fieldSpec.push(['tgd1', 'writeFloatLE', 4]);
+MsgEphemerisBds.prototype.fieldSpec.push(['tgd2', 'writeFloatLE', 4]);
 MsgEphemerisBds.prototype.fieldSpec.push(['c_rs', 'writeFloatLE', 4]);
 MsgEphemerisBds.prototype.fieldSpec.push(['c_rc', 'writeFloatLE', 4]);
 MsgEphemerisBds.prototype.fieldSpec.push(['c_uc', 'writeFloatLE', 4]);

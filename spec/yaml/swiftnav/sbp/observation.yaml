@@ -457,13 +457,14 @@ definitions:
       - common:
           type: EphemerisCommonContent
           desc: Values common for all ephemeris types
-      - tgd:
-          type: array
-          size: 2
-          fill: double
-          map_by: sid
+      - tgd1:
+          type: float
           units: s
-          desc: Group delay differential for B1 and B2
+          desc: Group delay differential for B1
+      - tgd2:
+          type: float
+          units: s
+          desc: Group delay differential for B2
       - c_rs:
           type: float
           units: m

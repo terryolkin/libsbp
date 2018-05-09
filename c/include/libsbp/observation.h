@@ -241,7 +241,8 @@ typedef struct __attribute__((packed)) {
 #define SBP_MSG_EPHEMERIS_BDS        0x0089
 typedef struct __attribute__((packed)) {
   ephemeris_common_content_t common;      /**< Values common for all ephemeris types */
-  double tgd[2];      /**< Group delay differential for B1 and B2 [s] */
+  float tgd1;        /**< Group delay differential for B1 [s] */
+  float tgd2;        /**< Group delay differential for B2 [s] */
   float c_rs;        /**< Amplitude of the sine harmonic correction term to the orbit radius [m] */
   float c_rc;        /**< Amplitude of the cosine harmonic correction term to the orbit radius [m] */
   float c_uc;        /**< Amplitude of the cosine harmonic correction term to the argument of latitude [rad] */
